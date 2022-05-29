@@ -80,7 +80,7 @@
 
 .key {
   font-variant-numeric: tabular-nums;
-  min-width: 1ch;
+  min-width: 2ch;
   display: inline-flex;
   justify-content: center;
 }
