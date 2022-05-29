@@ -1,0 +1,8 @@
+{
+  "exportall.config.relExclusion": [
+    "/src/hooks"
+  ],
+  "exportall.config.folderListener": [
+    "/src/hooks"
+  ]
+}

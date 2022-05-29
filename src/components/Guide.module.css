@@ -1,0 +1,86 @@
+.root {
+  --font: PingFang SC, Helvetica, sans-serif;
+  --bg: rgba(255, 255, 255, 0.72);
+  --pad: 60px;
+  --text-color: #464b4d;
+}
+
+.root.dark {
+  --bg: rgba(29, 29, 31, 0.72);
+  --text-color: #e6e6e6;
+}
+
+.container {
+  font-family: var(--font);
+  line-height: 1.6;
+  position: fixed;
+  width: 825px;
+  max-width: 80vw;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  inset: 0;
+  z-index: 1;
+  color: var(--text-color);
+}
+
+.panel {
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: var(--bg);
+  border-radius: 30px;
+  overflow: hidden;
+  font-size: 16px;
+  columns: 2;
+  gap: 100px;
+  width: 100%;
+  max-width: 100%;
+  padding: var(--pad);
+  position: relative;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: var(--pad);
+  bottom: var(--pad);
+  width: 0.5px;
+  background-color: currentColor;
+}
+
+.shortcut-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  min-width: 0;
+
+  max-width: 100%;
+  width: 100%;
+}
+
+.shortcut-item > span {
+  word-break: break-all;
+  min-width: 0;
+}
+
+.shortcut-item .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+}
+
+.shortcut-item .keys {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.key {
+  font-variant-numeric: tabular-nums;
+  min-width: 1ch;
+  display: inline-flex;
+  justify-content: center;
+}
