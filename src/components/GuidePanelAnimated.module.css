@@ -1,0 +1,10 @@
+.panel {
+  opacity: 1;
+  visibility: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.panel.disappear {
+  opacity: 0;
+  visibility: hidden;
+}

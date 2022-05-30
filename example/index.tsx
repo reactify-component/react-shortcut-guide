@@ -52,6 +52,16 @@ function Comp() {
     'Print D',
   )
 
+  useShortcut('?', [Modifier.None], () => {}, 'Open Guide')
+  useShortcut(
+    'K',
+    [Modifier.Command],
+    () => {
+      alert('Search')
+    },
+    'Search',
+  )
+
   return (
     <div onClick={cleanup}>
       Cleanup

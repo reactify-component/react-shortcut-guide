@@ -8,6 +8,7 @@ import { uniqueArray } from '~/utils/tool'
 
 import { ShortcutContext } from '..'
 import { GuidePanel } from './Guide'
+import { GuidePanelAnimated } from './GuidePanelAnimated'
 
 const modifiers = Object.keys(Modifier)
 const isModifierKey = (key: string) => !!-~modifiers.indexOf(key)
@@ -113,11 +114,7 @@ export const ShortcutProvider: FC = memo((props) => {
     <ShortcutContext.Provider value={{ shortcuts, registerShortcut }}>
       {props.children}
 
-      <GuidePanel />
+      <GuidePanelAnimated />
     </ShortcutContext.Provider>
   )
 })
-
-if (import.meta.env.DEV) {
-  ShortcutProvider.displayName = 'ShortcutProvider'
-}

@@ -19,7 +19,7 @@ export const GuidePanel: FC = memo(() => {
           return (
             <ShortcutItem
               {...shortcut}
-              key={shortcut.keys.join('+')}
+              key={shortcut.title}
               index={i}
               total={shortcuts.length}
             />
@@ -29,6 +29,7 @@ export const GuidePanel: FC = memo(() => {
     </div>
   )
 })
+
 const ShortcutItem: FC<ShortcutType & { index: number; total: number }> = memo(
   (props) => {
     const { keys, title, index, total } = props
