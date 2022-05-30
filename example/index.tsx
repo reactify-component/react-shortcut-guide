@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { render } from 'react-dom'
+import { OOOOOOOOO } from 'test'
 import { Modifier, useShortcut } from '~'
 
 import { ShortcutProvider } from '~/components/Provider'
@@ -15,53 +16,46 @@ function App() {
 }
 
 function Comp() {
-  const { registerShortcut } = useShortcut()
+  useShortcut(
+    'A',
+    [Modifier.Meta],
+    () => {
+      console.log('a')
+    },
+    'Print A',
+  )
 
-  useEffect(() => {
-    registerShortcut(
-      'a',
-      [Modifier.Meta],
-      () => {
-        console.log('a')
-      },
-      '将画布向上滚动',
-    )
+  useShortcut(
+    'B',
+    [Modifier.Control, Modifier.Meta, Modifier.Meta],
+    () => {
+      console.log('b')
+    },
+    'Print B',
+  )
 
-    registerShortcut(
-      '1',
-      [Modifier.Meta],
-      () => {
-        console.log('a')
-      },
-      '将画布向上滚动',
-    )
-    registerShortcut(
-      'c',
-      [Modifier.Meta],
-      () => {
-        console.log('a')
-      },
-      '将画布向上滚动',
-    )
+  useShortcut(
+    'Escape',
+    [Modifier.Control, Modifier.Meta, Modifier.Shift],
+    () => {
+      console.log('c')
+    },
+    'Print C',
+  )
 
-    registerShortcut(
-      'x',
-      [Modifier.Meta],
-      () => {
-        console.log('a')
-      },
-      '将画布向上滚动',
-    )
+  const cleanup = useShortcut(
+    'D',
+    [Modifier.None],
+    () => {
+      console.log('d')
+    },
+    'Print D',
+  )
 
-    registerShortcut(
-      'a',
-      [Modifier.Meta],
-      () => {
-        console.log('a')
-      },
-      '将画布向上滚动',
-    )
-  }, [])
-
-  return <div> 1</div>
+  return (
+    <div onClick={cleanup}>
+      Cleanup
+      <OOOOOOOOO />
+    </div>
+  )
 }

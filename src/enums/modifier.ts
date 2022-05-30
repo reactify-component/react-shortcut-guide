@@ -3,4 +3,6 @@ export enum Modifier {
   Control = 'Control',
   Meta = 'Meta',
   Shift = 'Shift',
+
+  None = '',
 }

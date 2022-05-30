@@ -1,13 +1,17 @@
 import { Modifier } from '..'
+import { Key } from './key'
 
 export type ShortcutType = {
   title: string
   keys: string[]
+  jointKey: string
 }
 
 export type RegisterShortcutType = (
-  key: string,
+  key: Key,
   modifierFlags: Modifier[],
-  action: () => any,
+  action: (e: KeyboardEvent) => any,
   discoverabilityTitle: string,
-) => any
+) => CleanupFn
+
+export type CleanupFn = () => void

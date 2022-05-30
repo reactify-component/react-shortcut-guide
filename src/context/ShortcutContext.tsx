@@ -8,5 +8,7 @@ export type ShortcutContextValue = {
 }
 export const ShortcutContext = React.createContext<ShortcutContextValue>({
   shortcuts: [],
-  registerShortcut() {},
+  registerShortcut() {
+    return () => {}
+  },
 })
