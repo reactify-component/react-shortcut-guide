@@ -1,7 +1,7 @@
 {
   "name": "react-shortcut-guide",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "TODO",
   "author": "Innei",
   "license": "MIT",
@@ -20,6 +20,9 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "bump": {
+    "publish": true
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
