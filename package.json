@@ -21,6 +21,9 @@
     }
   },
   "bump": {
+    "before": [
+      "npm run package"
+    ],
     "publish": true
   },
   "lint-staged": {
