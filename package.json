@@ -1,6 +1,6 @@
 {
   "name": "react-shortcut-guide",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "TODO",
   "author": "Innei",
   "license": "MIT",
@@ -72,6 +72,7 @@
     "rollup": "2.72.1",
     "rollup-plugin-import-css": "3.0.3",
     "rollup-plugin-peer-deps-external": "2.2.4",
+    "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-terser": "7.0.2",
     "tslib": "2.4.0",
     "ttypescript": "1.5.13",
