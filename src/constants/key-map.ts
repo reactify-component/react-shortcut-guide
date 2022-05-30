@@ -1,12 +1,15 @@
 import { Modifier } from '~/enums/modifier'
 import { SpecialKey } from '~/types/key'
 
-export const macosMetaKeyCharMap: Record<Modifier, string> = {
+export const macosMetaKeyCharMap: Record<keyof typeof Modifier, string> = {
   Meta: '⌘',
+  Command: '⌘',
+  None: '',
+  Option: '⌥',
+
   Alt: '⌥',
   Control: '⌃',
   Shift: '⇧',
-  None: '',
 }
 
 export const otherKeyCharMap: Record<SpecialKey, string> = {

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { ShortcutContext } from '..'
+import { ShortcutContext } from '../context/ShortcutContext'
 
 export const useShortcutList = () => {
   const { shortcuts } = useContext(ShortcutContext)

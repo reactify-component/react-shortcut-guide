@@ -1,21 +1,20 @@
-//@ts-check
-import typescript from '@rollup/plugin-typescript'
+// @ts-check
+import css from 'rollup-plugin-import-css'
+// import { babel } from '@rollup/plugin-babel'
+import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import { terser } from 'rollup-plugin-terser'
 
+import commonjs from '@rollup/plugin-commonjs'
 // import esbuild from 'rollup-plugin-esbuild'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-
-// import { babel } from '@rollup/plugin-babel'
-
-import peerDepsExternal from 'rollup-plugin-peer-deps-external'
+import typescript from '@rollup/plugin-typescript'
 
 const packageJson = require('./package.json')
 
 const umdName = packageJson.name
 
 const globals = {
-  ...packageJson.devDependencies,
+  ...packageJson.dependencies,
 }
 
 const dir = 'dist'
@@ -37,36 +36,36 @@ const config = [
 
     output: [
       {
-        file: dir + '/index.umd.js',
+        file: `${dir}/index.umd.js`,
         format: 'umd',
         sourcemap: true,
         name: umdName,
       },
       {
-        file: dir + '/index.umd.min.js',
+        file: `${dir}/index.umd.min.js`,
         format: 'umd',
         sourcemap: true,
         name: umdName,
         plugins: [terser()],
       },
       {
-        file: dir + '/index.cjs.js',
+        file: `${dir}/index.cjs.js`,
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: dir + '/index.cjs.min.js',
+        file: `${dir}/index.cjs.min.js`,
         format: 'cjs',
         sourcemap: true,
         plugins: [terser()],
       },
       {
-        file: dir + '/index.esm.js',
+        file: `${dir}/index.esm.js`,
         format: 'es',
         sourcemap: true,
       },
       {
-        file: dir + '/index.esm.min.js',
+        file: `${dir}/index.esm.min.js`,
         format: 'es',
         sourcemap: true,
         plugins: [terser()],
@@ -74,8 +73,13 @@ const config = [
     ],
     plugins: [
       nodeResolve(),
+      css(),
       commonjs({ include: 'node_modules/**' }),
-      typescript({ tsconfig: './src/tsconfig.json', declaration: false }),
+      typescript({
+        tsconfig: './src/tsconfig.json',
+        declaration: false,
+        jsx: 'react',
+      }),
       // esbuild({
       //   include: /\.[jt]sx?$/,
       //   exclude: /node_modules/,

@@ -3,11 +3,9 @@ import React, { FC, memo, useCallback, useEffect, useRef } from 'react'
 import { macosMetaKeyCharMap, otherKeyCharMap } from '~/constants/key-map'
 import { Modifier } from '~/enums/modifier'
 import { RegisterShortcutType, ShortcutType } from '~/types'
-import { Key } from '~/types/key'
 import { uniqueArray } from '~/utils/tool'
 
 import { ShortcutContext } from '..'
-import { GuidePanel } from './Guide'
 import { GuidePanelAnimated } from './GuidePanelAnimated'
 
 const modifiers = Object.keys(Modifier)
@@ -85,6 +83,7 @@ export const ShortcutProvider: FC = memo((props) => {
           {
             keys: [
               ...uniqueModifierFlags.map(
+                // @ts-ignore
                 (modifier) => macosMetaKeyCharMap[modifier],
               ),
               // @ts-ignore
