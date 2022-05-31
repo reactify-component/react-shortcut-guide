@@ -51,10 +51,11 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
         styles['root'],
         styles['container'],
         isDark && darkMode === 'media' && styles['dark'],
+        'rsg-panel',
         className,
       )}
     >
-      <div className={styles['panel']}>
+      <div className={clsx(styles['panel'], 'rsg-panel-inner')}>
         {shortcuts.map((shortcut, i) => {
           return (
             <ShortcutItem
@@ -77,17 +78,17 @@ const ShortcutItem: FC<ShortcutType & { index: number; total: number }> = memo(
       total % 2 == 0 ? [total >> 1, total] : [(total + 1) >> 1, null]
     return (
       <div
-        className={styles['shortcut-item']}
+        className={clsx(styles['shortcut-item'], 'rsg-shortcut-item')}
         style={
           isHalfEndOfColumns.includes(index + 1)
             ? { marginBottom: 0 }
             : undefined
         }
       >
-        <span className={styles['title']}>{title}</span>
-        <span className={styles['keys']}>
+        <span className={clsx(styles['title'], 'rsg-item-title')}>{title}</span>
+        <span className={clsx(styles['keys'], 'rsg-item-keys')}>
           {keys.map((key) => (
-            <span key={key} className={styles['key']}>
+            <span key={key} className={clsx(styles['key'], 'rsg-item-key')}>
               {key}
             </span>
           ))}

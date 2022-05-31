@@ -134,7 +134,10 @@ export const GuidePanelAnimated = memo(() => {
     <>
       {open &&
         createPortal(
-          <div ref={setPanelWrapperRef} className={clsx(styles['panel'])}>
+          <div
+            ref={setPanelWrapperRef}
+            className={clsx(styles['panel'], 'rsg-panel-wrapper')}
+          >
             <GuidePanel />
           </div>,
           document.body,
