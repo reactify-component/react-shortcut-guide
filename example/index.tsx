@@ -12,6 +12,9 @@ function App() {
     <ShortcutProvider
       options={{
         darkMode: 'media',
+        onGuidePanelOpen() {
+          console.log('open')
+        },
       }}
     >
       <Comp />

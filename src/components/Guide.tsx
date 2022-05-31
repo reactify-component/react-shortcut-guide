@@ -29,6 +29,19 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
     }
   }, [darkClassName, darkMode])
 
+  useEffect(() => {
+    let cleanup: any
+    requestAnimationFrame(() => {
+      cleanup = injectCSS(
+        `.${styles.root} { transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; }`,
+      )
+    })
+
+    return () => {
+      cleanup && cleanup()
+    }
+  }, [])
+
   if (!shortcuts.length) {
     return null
   }

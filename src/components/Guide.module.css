@@ -3,8 +3,6 @@
   --rsg-bg: rgba(255, 255, 255, 0.72);
   --rsg-pad: 60px;
   --rsg-text-color: #464b4d;
-
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .root.dark {

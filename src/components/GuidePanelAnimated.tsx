@@ -18,7 +18,7 @@ export const GuidePanelAnimated = memo(() => {
     onGuidePanelClose,
     onGuidePanelOpen,
   } = options || {}
-  const [animated, setAnimated] = useState<'in' | 'out'>('in')
+  const [animated, setAnimated] = useState<'in' | 'out' | 'none'>('none')
 
   useEffect(() => {
     if (open) {
@@ -30,6 +30,8 @@ export const GuidePanelAnimated = memo(() => {
 
   useEffect(() => {
     let disappearTimer = null as any
+
+    let isHoldCommandKey = false
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (checkIsPressInInputEl()) {
@@ -59,8 +61,10 @@ export const GuidePanelAnimated = memo(() => {
         const key = e.key
 
         if (key == 'Meta' || key == 'Control') {
+          disappearTimer = clearTimeout(disappearTimer)
           setOpen(true)
           setAnimated('in')
+          isHoldCommandKey = true
         }
       },
       holdCommandTimeout,
@@ -70,9 +74,14 @@ export const GuidePanelAnimated = memo(() => {
     )
 
     const handleKeyUp = (e: KeyboardEvent) => {
+      if (!isHoldCommandKey) {
+        return
+      }
+
       if (e.key == 'Meta' || e.key == 'Controll') {
         disappearTimer = setTimeout(() => {
           setAnimated('out')
+          isHoldCommandKey = false
         }, stayCommandTimeout)
       }
     }
@@ -98,15 +107,17 @@ export const GuidePanelAnimated = memo(() => {
     if (!panelWrapperRef) {
       return
     }
-    if (animated === 'in') {
-      // panelWrapperRef.classList.add(styles.show)
-    } else {
+
+    if (animated == 'none') {
+      return
+    } else if (animated == 'out') {
       panelWrapperRef.classList.add(styles.disappear)
     }
 
     panelWrapperRef.ontransitionend = () => {
       if (animated === 'out') {
         setOpen(false)
+        setAnimated('none')
       }
     }
 
