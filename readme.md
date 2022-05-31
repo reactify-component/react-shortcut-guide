@@ -20,7 +20,7 @@ npm i react-shortcut-guide
 import React from 'react'
 import { render } from 'react-dom'
 
-import { ShortcutProvider } from '~/components/Provider'
+import { ShortcutProvider } from 'react-shortcut-guide'
 
 render(<App />, document.getElementById('app'))
 
@@ -40,7 +40,7 @@ function App() {
 2. Register a shortcut by hook.
 
 ```ts
-import { useShortcut } from '~/components/Provider'
+import { useShortcut } from 'react-shortcut-guide'
 
 useShortcut(
   'A',
