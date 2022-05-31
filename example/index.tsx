@@ -76,8 +76,9 @@ function Comp() {
   )
 
   return (
-    <div onClick={cleanup}>
-      Cleanup D Shortcut
+    <div>
+      <p>Long press ⌘, or press ? to open the guide.</p>
+      <button onClick={cleanup}>Cleanup D Shortcut</button>
       <OOOOOOOOO />
     </div>
   )
