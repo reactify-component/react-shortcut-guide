@@ -4,6 +4,8 @@ Status: Alpha
 
 Long-press command or press `?` to present a shortcut guide for your Web application.
 
+Gzip+minify < 3kB
+
 ![](https://fastly.jsdelivr.net/gh/Innei/fancy@master/2022/0530221552.png)
 
 ## Install
@@ -50,6 +52,23 @@ useShortcut(
   },
   'Print A',
 )
+```
+
+## Size
+
+```
+react-shortcut-guide v0.1.0
+
+┌──────────────────┬──────────┐
+│ export           │ min+gzip │
+│                  │          │
+│ useShortcut      │  2.54 kB │
+│ GuidePanel       │   2.5 kB │
+│ Modifier         │   2.5 kB │
+│ ShortcutContext  │   2.5 kB │
+│ useShortcutList  │   2.5 kB │
+│ useMediaColor    │   2.5 kB │
+│ ShortcutProvider │   2.5 kB │
 ```
 
 ## Reference
