@@ -12,8 +12,21 @@ import styles from './GuidePanelAnimated.module.css'
 export const GuidePanelAnimated = memo(() => {
   const [open, setOpen] = useState(false)
   const { options } = useContext(ShortcutContext)
-  const { holdCommandTimeout = 1000, stayCommandTimeout = 1000 } = options || {}
+  const {
+    holdCommandTimeout = 1000,
+    stayCommandTimeout = 1000,
+    onGuidePanelClose,
+    onGuidePanelOpen,
+  } = options || {}
   const [animated, setAnimated] = useState<'in' | 'out'>('in')
+
+  useEffect(() => {
+    if (open) {
+      onGuidePanelOpen && onGuidePanelOpen()
+    } else {
+      onGuidePanelClose && onGuidePanelClose()
+    }
+  }, [onGuidePanelClose, onGuidePanelOpen, open])
 
   useEffect(() => {
     let disappearTimer = null as any

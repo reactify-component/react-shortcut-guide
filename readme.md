@@ -77,6 +77,15 @@ type ShortcutOptions = {
    * @default 1000
    */
   stayCommandTimeout?: number
+
+  /**
+   * Guide 打开事件
+   */
+  onGuidePanelOpen?: () => any
+  /**
+   * Guide 关闭事件
+   */
+  onGuidePanelClose?: () => any
 }
 ```
 
