@@ -1,21 +1,28 @@
 import debounce from 'lodash.debounce'
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import { clsx } from '~/utils/clsx'
+import { checkIsPressInInputEl } from '~/utils/input'
 
+import { ShortcutContext } from '..'
 import { GuidePanel } from './Guide'
 import styles from './GuidePanelAnimated.module.css'
 
 export const GuidePanelAnimated = memo(() => {
   const [open, setOpen] = useState(false)
-
+  const { options } = useContext(ShortcutContext)
+  const { holdCommandTimeout = 1000, stayCommandTimeout = 1000 } = options || {}
   const [animated, setAnimated] = useState<'in' | 'out'>('in')
 
   useEffect(() => {
     let disappearTimer = null as any
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (checkIsPressInInputEl()) {
+        return
+      }
+
       if (e.key === '?') {
         disappearTimer && (disappearTimer = clearTimeout(disappearTimer))
         setOpen((open) => {
@@ -43,7 +50,7 @@ export const GuidePanelAnimated = memo(() => {
           setAnimated('in')
         }
       },
-      1000,
+      holdCommandTimeout,
       {
         leading: false,
       },
@@ -53,7 +60,7 @@ export const GuidePanelAnimated = memo(() => {
       if (e.key == 'Meta' || e.key == 'Controll') {
         disappearTimer = setTimeout(() => {
           setAnimated('out')
-        }, 1000)
+        }, stayCommandTimeout)
       }
     }
 

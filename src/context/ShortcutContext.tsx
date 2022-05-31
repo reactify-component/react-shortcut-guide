@@ -8,6 +8,18 @@ export type ShortcutOptions = {
    * @default 'body.dark'
    */
   darkClassName?: string
+
+  /**
+   * 长按 Command 呼出的时间
+   * @default 1000
+   */
+  holdCommandTimeout?: number
+
+  /**
+   * 释放 Command 后的 Guide Panel 停留时间
+   * @default 1000
+   */
+  stayCommandTimeout?: number
 }
 export type ShortcutContextValue = {
   shortcuts: ShortcutType[]

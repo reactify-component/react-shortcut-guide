@@ -1,11 +1,12 @@
 import React, { FC, memo, useContext, useEffect } from 'react'
 
+import { useMediaColor } from '~/hooks/use-media-color'
 import { useShortcutList } from '~/hooks/use-shortcut-list'
 import { ShortcutType } from '~/types'
 import { clsx } from '~/utils/clsx'
 import { injectCSS } from '~/utils/css'
 
-import { ShortcutContext, useMediaColor } from '..'
+import { ShortcutContext } from '..'
 import styles from './Guide.module.css'
 
 export const GuidePanel: FC<{ className?: string }> = memo((props) => {

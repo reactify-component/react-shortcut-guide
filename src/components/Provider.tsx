@@ -3,6 +3,7 @@ import React, { FC, memo, useCallback, useEffect, useRef } from 'react'
 import { macosMetaKeyCharMap, otherKeyCharMap } from '~/constants/key-map'
 import { Modifier } from '~/enums/modifier'
 import { RegisterShortcutType, ShortcutType } from '~/types'
+import { checkIsPressInInputEl } from '~/utils/input'
 import { uniqueArray } from '~/utils/tool'
 
 import { ShortcutContext, ShortcutOptions } from '..'
@@ -16,8 +17,13 @@ export const ShortcutProvider: FC<{ options?: ShortcutOptions }> = memo(
     const { options } = props
     const [shortcuts, setShortcuts] = React.useState<ShortcutType[]>([])
 
-    const registerShortcutKeys = useRef(new Set<string>())
-    const actionMap = useRef({} as Record<string, (e: KeyboardEvent) => void>)
+    const actionMap = useRef(
+      new Map() as Map<string, (e: KeyboardEvent) => any>,
+    )
+
+    const action2ShortcutWeakMap = useRef(
+      new WeakMap<(e: KeyboardEvent) => any, ShortcutType>(),
+    )
 
     useEffect(() => {
       const globalHandler = (event: KeyboardEvent) => {
@@ -49,10 +55,18 @@ export const ShortcutProvider: FC<{ options?: ShortcutOptions }> = memo(
 
         const concatKey = `${modifierJoint ? `${modifierJoint}+` : ''}${key}`
 
-        // console.log(concatKey, registerShortcutKeys.current)
+        if (actionMap.current.has(concatKey)) {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const action = actionMap.current.get(concatKey)!
 
-        if (registerShortcutKeys.current.has(concatKey)) {
-          const action = actionMap.current[concatKey]
+          const shortcut = action2ShortcutWeakMap.current.get(action)
+
+          if (shortcut?.preventInput) {
+            if (checkIsPressInInputEl()) {
+              return
+            }
+          }
+
           action?.(event)
         }
       }
@@ -64,7 +78,9 @@ export const ShortcutProvider: FC<{ options?: ShortcutOptions }> = memo(
     }, [])
 
     const registerShortcut: RegisterShortcutType = useCallback(
-      (key, modifierFlags, action, discoverabilityTitle) => {
+      (key, modifierFlags, action, discoverabilityTitle, options) => {
+        const { hiddenInPanel = false, preventInput = true } = options || {}
+
         const uniqueModifierFlags = uniqueArray(modifierFlags).filter(Boolean)
 
         const jointKey = `${
@@ -73,37 +89,37 @@ export const ShortcutProvider: FC<{ options?: ShortcutOptions }> = memo(
             : ''
         }${key}`
         setShortcuts((shortcuts) => {
-          if (registerShortcutKeys.current.has(jointKey)) {
+          if (actionMap.current.has(jointKey)) {
             return shortcuts
           }
 
-          registerShortcutKeys.current.add(jointKey)
-          actionMap.current[jointKey] = action
-
-          return [
-            ...shortcuts,
-            {
-              keys: [
-                ...uniqueModifierFlags.map(
-                  // @ts-ignore
-                  (modifier) => macosMetaKeyCharMap[modifier],
-                ),
+          actionMap.current.set(jointKey, action)
+          const newShortcut = {
+            keys: [
+              ...uniqueModifierFlags.map(
                 // @ts-ignore
-                otherKeyCharMap[key] ?? key.toUpperCase(),
-              ],
-              title: discoverabilityTitle,
-              jointKey,
-            },
-          ]
+                (modifier) => macosMetaKeyCharMap[modifier],
+              ),
+              // @ts-ignore
+              otherKeyCharMap[key] ?? key.toUpperCase(),
+            ],
+            title: discoverabilityTitle,
+            jointKey,
+            hiddenInPanel,
+            action,
+            preventInput,
+          }
+          action2ShortcutWeakMap.current.set(action, newShortcut)
+
+          return [...shortcuts, newShortcut]
         })
 
         return () => {
-          if (!registerShortcutKeys.current.has(jointKey)) {
+          if (!actionMap.current.has(jointKey)) {
             return
           }
           setShortcuts((shortcuts) => {
-            registerShortcutKeys.current.delete(jointKey)
-            delete actionMap.current[jointKey]
+            actionMap.current.delete(jointKey)
             return shortcuts.filter(
               (shortcut) => shortcut.jointKey !== jointKey,
             )

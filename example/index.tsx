@@ -75,6 +75,20 @@ function Comp() {
     'Search',
   )
 
+  useShortcut(
+    'P',
+    [Modifier.Command],
+    (e) => {
+      e.preventDefault()
+      alert('Search')
+    },
+    'Hidden',
+    {
+      preventInput: false,
+      hiddenInPanel: true,
+    },
+  )
+
   return (
     <div>
       <p>Long press ⌘, or press ? to open the guide.</p>
