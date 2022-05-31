@@ -1,19 +1,45 @@
-import React, { FC, memo } from 'react'
+import React, { FC, memo, useContext, useEffect } from 'react'
 
 import { useShortcutList } from '~/hooks/use-shortcut-list'
 import { ShortcutType } from '~/types'
 import { clsx } from '~/utils/clsx'
+import { injectCSS } from '~/utils/css'
 
+import { ShortcutContext, useMediaColor } from '..'
 import styles from './Guide.module.css'
 
-export const GuidePanel: FC = memo(() => {
+export const GuidePanel: FC<{ className?: string }> = memo((props) => {
+  const { className } = props
   const shortcuts = useShortcutList()
+
+  const { options } = useContext(ShortcutContext)
+  const { darkClassName = 'body.dark', darkMode = 'media' } = options
+
+  const { dark: isDark } = useMediaColor()
+  useEffect(() => {
+    if (darkMode === 'class') {
+      const triggerClassName = darkClassName
+      return injectCSS(`
+        ${triggerClassName} .${styles.root} {
+          --rsg-bg: rgba(29, 29, 31, 0.72) !important;
+          --rsg-text-color: #e6e6e6 !important;
+        }
+      `)
+    }
+  }, [darkClassName, darkMode])
 
   if (!shortcuts.length) {
     return null
   }
   return (
-    <div className={clsx(styles['root'], styles['container'])}>
+    <div
+      className={clsx(
+        styles['root'],
+        styles['container'],
+        isDark && darkMode === 'media' && styles['dark'],
+        className,
+      )}
+    >
       <div className={styles['panel']}>
         {shortcuts.map((shortcut, i) => {
           return (

@@ -1,17 +1,19 @@
 .root {
-  --font: PingFang SC, Helvetica, sans-serif;
-  --bg: rgba(255, 255, 255, 0.72);
-  --pad: 60px;
-  --text-color: #464b4d;
+  --rsg-font: PingFang SC, Helvetica, sans-serif;
+  --rsg-bg: rgba(255, 255, 255, 0.72);
+  --rsg-pad: 60px;
+  --rsg-text-color: #464b4d;
+
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .root.dark {
-  --bg: rgba(29, 29, 31, 0.72);
-  --text-color: #e6e6e6;
+  --rsg-bg: rgba(29, 29, 31, 0.72);
+  --rsg-text-color: #e6e6e6;
 }
 
 .container {
-  font-family: var(--font);
+  font-family: var(--rsg-font);
   line-height: 1.6;
   position: fixed;
   width: 825px;
@@ -21,12 +23,12 @@
   align-items: center;
   inset: 0;
   z-index: 1;
-  color: var(--text-color);
+  color: var(--rsg-text-color);
 }
 
 .panel {
   backdrop-filter: saturate(180%) blur(20px);
-  background-color: var(--bg);
+  background-color: var(--rsg-bg);
   border-radius: 30px;
   overflow: hidden;
   font-size: 16px;
@@ -34,7 +36,7 @@
   gap: 100px;
   width: 100%;
   max-width: 100%;
-  padding: var(--pad);
+  padding: var(--rsg-pad);
   position: relative;
 }
 
@@ -42,8 +44,8 @@
   content: '';
   position: absolute;
   left: 50%;
-  top: var(--pad);
-  bottom: var(--pad);
+  top: var(--rsg-pad);
+  bottom: var(--rsg-pad);
   width: 0.5px;
   background-color: currentColor;
 }
@@ -67,7 +69,7 @@
 .shortcut-item .title {
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
+  white-space: nowrap;
 }
 
 .shortcut-item .keys {

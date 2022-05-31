@@ -9,7 +9,11 @@ render(<App />, document.getElementById('app'))
 
 function App() {
   return (
-    <ShortcutProvider>
+    <ShortcutProvider
+      options={{
+        darkMode: 'media',
+      }}
+    >
       <Comp />
     </ShortcutProvider>
   )
@@ -50,6 +54,15 @@ function Comp() {
       console.log('d')
     },
     'Print D',
+  )
+
+  useShortcut(
+    'O',
+    [Modifier.Command, Modifier.Alt, Modifier.Shift],
+    () => {
+      console.log('d')
+    },
+    'Long Item Long Item Long Item Long Item Long Item',
   )
 
   useShortcut('?', [Modifier.None], () => {}, 'Open Guide')
