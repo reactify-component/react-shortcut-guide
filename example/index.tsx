@@ -77,7 +77,7 @@ function Comp() {
 
   return (
     <div onClick={cleanup}>
-      Cleanup
+      Cleanup D Shortcut
       <OOOOOOOOO />
     </div>
   )
