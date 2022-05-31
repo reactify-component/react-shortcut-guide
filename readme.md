@@ -21,7 +21,6 @@ npm i react-shortcut-guide
 ```tsx
 import React from 'react'
 import { render } from 'react-dom'
-
 import { ShortcutProvider } from 'react-shortcut-guide'
 
 render(<App />, document.getElementById('app'))
@@ -51,24 +50,51 @@ useShortcut(
     console.log('a')
   },
   'Print A',
+  options,
 )
 ```
 
-## Size
+## Options
 
+ProviderOptions:
+
+```ts
+type ShortcutOptions = {
+  darkMode?: 'media' | 'class'
+  /**
+   * @default 'body.dark'
+   */
+  darkClassName?: string
+
+  /**
+   * 长按 Command 呼出的时间
+   * @default 1000
+   */
+  holdCommandTimeout?: number
+
+  /**
+   * 释放 Command 后的 Guide Panel 停留时间
+   * @default 1000
+   */
+  stayCommandTimeout?: number
+}
 ```
-react-shortcut-guide v0.1.0
 
-┌──────────────────┬──────────┐
-│ export           │ min+gzip │
-│                  │          │
-│ useShortcut      │  2.54 kB │
-│ GuidePanel       │   2.5 kB │
-│ Modifier         │   2.5 kB │
-│ ShortcutContext  │   2.5 kB │
-│ useShortcutList  │   2.5 kB │
-│ useMediaColor    │   2.5 kB │
-│ ShortcutProvider │   2.5 kB │
+Hook Options:
+
+```ts
+type RegisterShortcutOptions = {
+  /**
+   * 在输入框上禁用快捷键
+   * @default true
+   */
+  preventInput?: boolean
+  /**
+   * 不在 Guide 上显示这个快捷键指令
+   * @default false
+   */
+  hiddenInPanel?: boolean
+}
 ```
 
 ## Reference
