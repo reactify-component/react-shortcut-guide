@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom'
 import { clsx } from '~/utils/clsx'
 import { checkIsPressInInputEl } from '~/utils/input'
 
-import { ShortcutContext } from '..'
+import { ShortcutContext, useStateToRef } from '..'
 import { GuidePanel } from './Guide'
 import styles from './GuidePanelAnimated.module.css'
 
@@ -19,6 +19,8 @@ export const GuidePanelAnimated = memo(() => {
     onGuidePanelOpen,
   } = options || {}
   const [animated, setAnimated] = useState<'in' | 'out' | 'none'>('none')
+
+  const openStatus = useStateToRef(open)
 
   useEffect(() => {
     if (open) {
@@ -86,9 +88,19 @@ export const GuidePanelAnimated = memo(() => {
       }
     }
 
+    const handleFocus = () => {
+      if (openStatus.current) {
+        disappearTimer = setTimeout(() => {
+          setAnimated('out')
+          isHoldCommandKey = false
+        }, stayCommandTimeout)
+      }
+    }
+
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('keydown', handleCommandKey)
     window.addEventListener('keyup', handleKeyUp)
+    window.addEventListener('focus', handleFocus)
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
@@ -97,7 +109,7 @@ export const GuidePanelAnimated = memo(() => {
 
       clearTimeout(disappearTimer)
     }
-  }, [])
+  }, [holdCommandTimeout, stayCommandTimeout])
 
   const [panelWrapperRef, setPanelWrapperRef] = useState<HTMLDivElement | null>(
     null,
