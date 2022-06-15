@@ -60,6 +60,10 @@ export const GuidePanelAnimated = memo(() => {
 
     const handleCommandKey = debounce(
       (e: KeyboardEvent) => {
+        if (!document.hasFocus()) {
+          return
+        }
+
         const key = e.key
 
         if (key == 'Meta' || key == 'Control') {
