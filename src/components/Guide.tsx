@@ -3,7 +3,7 @@ import React, { FC, memo, useContext, useEffect } from 'react'
 import { useMediaColor } from '~/hooks/use-media-color'
 import { useShortcutList } from '~/hooks/use-shortcut-list'
 import { ShortcutType } from '~/types'
-import { chunk } from '~/utils/chunk'
+import { chunkTwo } from '~/utils/chunk'
 import { clsx } from '~/utils/clsx'
 import { injectCSS } from '~/utils/css'
 
@@ -46,7 +46,10 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
   if (!shortcuts.length) {
     return null
   }
-  const splitShortcutsIntoTwoParts = chunk(shortcuts)
+  const splitShortcutsIntoTwoParts = chunkTwo(shortcuts)
+
+  console.log(splitShortcutsIntoTwoParts)
+
   const [left, right] = splitShortcutsIntoTwoParts
   return (
     <div
@@ -60,13 +63,21 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
     >
       <div className={clsx(styles['panel'], 'rsg-panel-inner')}>
         <div className={styles['left']}>
-          {left.map((shortcut) => (
-            <ShortcutItem {...shortcut} key={shortcut.jointKey} />
+          {left.map((shortcut, i) => (
+            <ShortcutItem
+              {...shortcut}
+              key={shortcut.jointKey}
+              isEnd={i == left.length - 1}
+            />
           ))}
         </div>
         <div className={styles['right']}>
-          {right.map((shortcut) => (
-            <ShortcutItem {...shortcut} key={shortcut.jointKey} />
+          {right.map((shortcut, i) => (
+            <ShortcutItem
+              {...shortcut}
+              key={shortcut.jointKey}
+              isEnd={i == right.length - 1}
+            />
           ))}
         </div>
       </div>

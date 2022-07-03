@@ -48,6 +48,17 @@
   background-color: currentColor;
 }
 
+.panel .left,
+.panel .right {
+  width: calc(50% - 40px);
+  margin: auto;
+  float: left;
+}
+
+.panel .right {
+  float: right;
+}
+
 .shortcut-item {
   display: flex;
   justify-content: space-between;

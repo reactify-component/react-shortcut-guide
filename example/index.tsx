@@ -115,23 +115,23 @@ function Comp() {
       preventInput: false,
     },
   )
-  useShortcut(
-    'T',
-    [Modifier.Command],
-    (e) => {
-      e.preventDefault()
-      alert('Search')
-    },
-    'Hiddenx',
-    {
-      preventInput: false,
-    },
-  )
+  // useShortcut(
+  //   'T',
+  //   [Modifier.Command],
+  //   (e) => {
+  //     e.preventDefault()
+  //     alert('Search')
+  //   },
+  //   'Hiddenx',
+  //   {
+  //     preventInput: false,
+  //   },
+  // )
 
   return (
     <div>
       <p>Long press ⌘, or press ? to open the guide.</p>
-      <button onClick={cleanup}>Cleanup D Shortcut</button>
+      {/* <button onClick={cleanup}>Cleanup D Shortcut</button> */}
       <OOOOOOOOO />
     </div>
   )

@@ -1,14 +1,15 @@
-export function chunk<T>(array: T[], size = 2): T[][] {
+export function chunkTwo<T>(array: T[]): T[][] {
   const length = array == null ? 0 : array.length
-  if (!length || size < 1) {
-    return []
+  const result = [[], []] as T[][]
+  if (!length) {
+    return result
   }
-  let index = 0
-  let resIndex = 0
-  const result = new Array(Math.ceil(length / size))
 
-  while (index < length) {
-    result[resIndex++] = array.slice(index, (index += size))
+  if (length == 2) {
+    return [[array[0]], [array[1]]]
   }
-  return result
+
+  const midIndex = Math.ceil(array.length / 2)
+
+  return [array.slice(0, midIndex), array.slice(midIndex, array.length)]
 }
