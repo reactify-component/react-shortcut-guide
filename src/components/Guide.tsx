@@ -48,8 +48,6 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
   }
   const splitShortcutsIntoTwoParts = chunkTwo(shortcuts)
 
-  console.log(splitShortcutsIntoTwoParts)
-
   const [left, right] = splitShortcutsIntoTwoParts
   return (
     <div
