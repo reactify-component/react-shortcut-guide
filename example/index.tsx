@@ -88,7 +88,43 @@ function Comp() {
     'Hidden',
     {
       preventInput: false,
-      hiddenInPanel: true,
+    },
+  )
+
+  useShortcut(
+    'X',
+    [Modifier.Command],
+    (e) => {
+      e.preventDefault()
+      alert('Search')
+    },
+    'Hidaden',
+    {
+      preventInput: false,
+    },
+  )
+  useShortcut(
+    'B',
+    [Modifier.Command],
+    (e) => {
+      e.preventDefault()
+      alert('Search')
+    },
+    'Hiddzen',
+    {
+      preventInput: false,
+    },
+  )
+  useShortcut(
+    'T',
+    [Modifier.Command],
+    (e) => {
+      e.preventDefault()
+      alert('Search')
+    },
+    'Hiddenx',
+    {
+      preventInput: false,
     },
   )
 
