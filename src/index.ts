@@ -1,5 +1,5 @@
-export * from './context/ShortcutContext'
 export * from './components/Guide'
 export * from './components/Provider'
-export * from './hooks'
+export * from './context/ShortcutContext'
 export * from './enums'
+export * from './hooks'

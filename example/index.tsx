@@ -88,14 +88,50 @@ function Comp() {
     'Hidden',
     {
       preventInput: false,
-      hiddenInPanel: true,
     },
   )
+
+  useShortcut(
+    'X',
+    [Modifier.Command],
+    (e) => {
+      e.preventDefault()
+      alert('Search')
+    },
+    'Hidaden',
+    {
+      preventInput: false,
+    },
+  )
+  useShortcut(
+    'B',
+    [Modifier.Command],
+    (e) => {
+      e.preventDefault()
+      alert('Search')
+    },
+    'Hiddzen',
+    {
+      preventInput: false,
+    },
+  )
+  // useShortcut(
+  //   'T',
+  //   [Modifier.Command],
+  //   (e) => {
+  //     e.preventDefault()
+  //     alert('Search')
+  //   },
+  //   'Hiddenx',
+  //   {
+  //     preventInput: false,
+  //   },
+  // )
 
   return (
     <div>
       <p>Long press ⌘, or press ? to open the guide.</p>
-      <button onClick={cleanup}>Cleanup D Shortcut</button>
+      {/* <button onClick={cleanup}>Cleanup D Shortcut</button> */}
       <OOOOOOOOO />
     </div>
   )

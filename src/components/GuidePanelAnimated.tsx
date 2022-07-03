@@ -10,7 +10,7 @@ import { GuidePanel } from './Guide'
 import styles from './GuidePanelAnimated.module.css'
 
 export const GuidePanelAnimated = memo(() => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const { options } = useContext(ShortcutContext)
   const {
     holdCommandTimeout = 1000,

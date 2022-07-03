@@ -3,6 +3,7 @@ import React, { FC, memo, useContext, useEffect } from 'react'
 import { useMediaColor } from '~/hooks/use-media-color'
 import { useShortcutList } from '~/hooks/use-shortcut-list'
 import { ShortcutType } from '~/types'
+import { chunkTwo } from '~/utils/chunk'
 import { clsx } from '~/utils/clsx'
 import { injectCSS } from '~/utils/css'
 
@@ -45,6 +46,11 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
   if (!shortcuts.length) {
     return null
   }
+  const splitShortcutsIntoTwoParts = chunkTwo(shortcuts)
+
+  console.log(splitShortcutsIntoTwoParts)
+
+  const [left, right] = splitShortcutsIntoTwoParts
   return (
     <div
       className={clsx(
@@ -56,44 +62,45 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
       )}
     >
       <div className={clsx(styles['panel'], 'rsg-panel-inner')}>
-        {shortcuts.map((shortcut, i) => {
-          return (
+        <div className={styles['left']}>
+          {left.map((shortcut, i) => (
             <ShortcutItem
               {...shortcut}
               key={shortcut.jointKey}
-              index={i}
-              total={shortcuts.length}
+              isEnd={i == left.length - 1}
             />
-          )
-        })}
+          ))}
+        </div>
+        <div className={styles['right']}>
+          {right.map((shortcut, i) => (
+            <ShortcutItem
+              {...shortcut}
+              key={shortcut.jointKey}
+              isEnd={i == right.length - 1}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )
 })
 
-const ShortcutItem: FC<ShortcutType & { index: number; total: number }> = memo(
-  (props) => {
-    const { keys, title, index, total } = props
-    const isHalfEndOfColumns =
-      total % 2 == 0 ? [total >> 1, total] : [(total + 1) >> 1, null]
-    return (
-      <div
-        className={clsx(styles['shortcut-item'], 'rsg-shortcut-item')}
-        style={
-          isHalfEndOfColumns.includes(index + 1)
-            ? { marginBottom: 0 }
-            : undefined
-        }
-      >
-        <span className={clsx(styles['title'], 'rsg-item-title')}>{title}</span>
-        <span className={clsx(styles['keys'], 'rsg-item-keys')}>
-          {keys.map((key) => (
-            <span key={key} className={clsx(styles['key'], 'rsg-item-key')}>
-              {key}
-            </span>
-          ))}
-        </span>
-      </div>
-    )
-  },
-)
+const ShortcutItem: FC<ShortcutType & { isEnd?: boolean }> = memo((props) => {
+  const { keys, title, isEnd } = props
+
+  return (
+    <div
+      className={clsx(styles['shortcut-item'], 'rsg-shortcut-item')}
+      style={isEnd ? { marginBottom: 0 } : undefined}
+    >
+      <span className={clsx(styles['title'], 'rsg-item-title')}>{title}</span>
+      <span className={clsx(styles['keys'], 'rsg-item-keys')}>
+        {keys.map((key) => (
+          <span key={key} className={clsx(styles['key'], 'rsg-item-key')}>
+            {key}
+          </span>
+        ))}
+      </span>
+    </div>
+  )
+})
