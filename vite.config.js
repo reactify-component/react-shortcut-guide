@@ -18,10 +18,10 @@ export default defineConfig({
   ],
   root: resolve(__dirname, './example'),
   build: {
+    emptyOutDir: true,
+
     rollupOptions: {
-      input: {
-        main: resolve(__dirname, './example/index.html'),
-      },
+      input: resolve(__dirname, './example/index.html'),
     },
   },
 })
