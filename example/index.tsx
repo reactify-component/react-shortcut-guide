@@ -1,11 +1,28 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { render } from 'react-dom'
-import { OOOOOOOOO } from 'test'
-import { Modifier, useShortcut } from '~'
+import { Modifier, ShortcutContext, useShortcut, useShortcutOptions } from '~'
+
+import {
+  Button,
+  CssBaseline,
+  GeistProvider,
+  Page,
+  Spacer,
+  Text,
+  Tooltip,
+} from '@geist-ui/core'
 
 import { ShortcutProvider } from '~/components/Provider'
 
-render(<App />, document.getElementById('app'))
+render(
+  <GeistProvider>
+    <CssBaseline />
+    <Page>
+      <App />
+    </Page>
+  </GeistProvider>,
+  document.getElementById('app'),
+)
 
 function App() {
   return (
@@ -15,7 +32,6 @@ function App() {
         onGuidePanelOpen() {
           console.log('open')
         },
-        debug: true,
       }}
     >
       <Comp />
@@ -160,6 +176,7 @@ function Comp() {
   alphabet.split('').forEach((letter, index) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useShortcut(
+      // @ts-ignore
       letter,
       [Modifier.Command, Modifier.Control],
       (e) => {
@@ -173,11 +190,31 @@ function Comp() {
     )
   })
 
+  const { setOptions, options } = useShortcutOptions()
   return (
     <div>
-      <p>Long press ⌘, or press ? to open the guide.</p>
-      <button onClick={cleanup}>Cleanup D Shortcut</button>
-      <OOOOOOOOO />
+      <Text h1>React Shortcut Guideline</Text>
+      <Text>Long press ⌘, or press ? to open the guide.</Text>
+      <Tooltip text="Controlled Panel">
+        <Button
+          style={{
+            marginRight: '12px',
+          }}
+          type="default"
+          shadow
+          onClick={() => {
+            setOptions({
+              open: !options.open,
+            })
+          }}
+        >
+          {options.open ? 'Close' : 'Open'} Guide
+        </Button>
+      </Tooltip>
+
+      <Button type="secondary" shadow onClick={cleanup}>
+        Cleanup D Shortcut
+      </Button>
     </div>
   )
 }

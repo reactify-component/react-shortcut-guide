@@ -1,13 +1,13 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@geist-ui/core': 2.3.8
   '@innei-util/eslint-config-react-ts': 0.8.2
   '@innei-util/eslint-config-ts': latest
   '@innei-util/prettier': latest
   '@rollup/plugin-commonjs': 22.0.0
   '@rollup/plugin-node-resolve': 13.3.0
   '@rollup/plugin-typescript': 8.3.2
-  '@types/lodash.debounce': 4.0.7
   '@types/node': 17.0.31
   '@types/react': ^17
   '@types/react-dom': ^17
@@ -18,7 +18,6 @@ specifiers:
   gh-pages: 3.2.3
   husky: 8.0.1
   lint-staged: 12.4.1
-  lodash.debounce: 4.0.8
   postcss: 8.4.14
   postcss-nested: 5.0.6
   postcss-preset-env: 7.7.2
@@ -37,17 +36,14 @@ specifiers:
   vite-tsconfig-paths: 3.4.1
   vitest: 0.12.1
 
-dependencies:
-  lodash.debounce: 4.0.8
-
 devDependencies:
+  '@geist-ui/core': 2.3.8_sfoxds7t5ydpegc3knd667wn6m
   '@innei-util/eslint-config-react-ts': 0.8.2_typescript@4.4.4
   '@innei-util/eslint-config-ts': 0.8.2_typescript@4.4.4
   '@innei-util/prettier': 0.8.2
   '@rollup/plugin-commonjs': 22.0.0_rollup@2.72.1
   '@rollup/plugin-node-resolve': 13.3.0_rollup@2.72.1
   '@rollup/plugin-typescript': 8.3.2_t3thoeh4dqmtxclnmw4robqpja
-  '@types/lodash.debounce': 4.0.7
   '@types/node': 17.0.31
   '@types/react': 17.0.45
   '@types/react-dom': 17.0.17
@@ -326,6 +322,13 @@ packages:
       '@babel/types': 7.18.2
     dev: true
 
+  /@babel/runtime/7.18.9:
+    resolution: {integrity: sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.9
+    dev: true
+
   /@babel/template/7.16.7:
     resolution: {integrity: sha512-I8j/x8kHUrbYRTUxXrrMbfCa7jxkE7tZre39x3kjr9hvI82cK1FfqLygotcWN5kdPGWcLdWMHpSBavse5tWw3w==}
     engines: {node: '>=6.9.0'}
@@ -523,6 +526,17 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@geist-ui/core/2.3.8_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-OKwGgTA4+fBM41eQbqDoUj4XBycZbYH7Ynrn6LPO5yKX7zeWPu/R7HN3vB4/oHt34VTDQI5sDNb1SirHvNyB5w==}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    dependencies:
+      '@babel/runtime': 7.18.9
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: true
 
   /@humanwhocodes/config-array/0.9.5:
@@ -753,16 +767,6 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
-    dev: true
-
-  /@types/lodash.debounce/4.0.7:
-    resolution: {integrity: sha512-X1T4wMZ+gT000M2/91SYj0d/7JfeNZ9PeeOldSNoE/lunLeQXKvkmIumI29IaKMotU/ln/McOIvgzZcQ/3TrSA==}
-    dependencies:
-      '@types/lodash': 4.14.182
-    dev: true
-
-  /@types/lodash/4.14.182:
-    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
     dev: true
 
   /@types/node/17.0.31:
@@ -2925,10 +2929,6 @@ packages:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
     dev: true
 
-  /lodash.debounce/4.0.8:
-    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
-    dev: false
-
   /lodash.memoize/4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
     dev: true
@@ -4103,6 +4103,10 @@ packages:
       glob-regex: 0.3.2
       slash: 3.0.0
       tslib: 1.14.1
+    dev: true
+
+  /regenerator-runtime/0.13.9:
+    resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
     dev: true
 
   /regexp.prototype.flags/1.4.3:

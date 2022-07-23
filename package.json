@@ -47,6 +47,7 @@
     "test": "vitest "
   },
   "devDependencies": {
+    "@geist-ui/core": "2.3.8",
     "@innei-util/eslint-config-react-ts": "0.8.2",
     "@innei-util/eslint-config-ts": "latest",
     "@innei-util/prettier": "latest",

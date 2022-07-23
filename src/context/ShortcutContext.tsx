@@ -34,13 +34,17 @@ export type ShortcutOptions = {
    * @default 12
    */
   maxItemEveryPage?: number
-
-  debug?: boolean
+  /**
+   * 受控态
+   * @default false
+   */
+  open?: boolean
 }
 export type ShortcutContextValue = {
   shortcuts: ShortcutType[]
   registerShortcut: RegisterShortcutType
   options: ShortcutOptions
+  setOptions: (options: Partial<ShortcutOptions>) => void
 }
 export const ShortcutContext = React.createContext<ShortcutContextValue>({
   shortcuts: [],
@@ -48,4 +52,5 @@ export const ShortcutContext = React.createContext<ShortcutContextValue>({
     return () => {}
   },
   options: {},
+  setOptions: () => void 0,
 })

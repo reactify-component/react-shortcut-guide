@@ -1,9 +1,18 @@
-import React, { FC, memo, useCallback, useEffect, useRef } from 'react'
+import React, {
+  FC,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 import { macosMetaKeyCharMap, otherKeyCharMap } from '~/constants/key-map'
 import { Modifier } from '~/enums/modifier'
 import { RegisterShortcutType, ShortcutType } from '~/types'
 import { checkIsPressInInputEl } from '~/utils/input'
+import { merge } from '~/utils/merge'
 import { uniqueArray } from '~/utils/tool'
 
 import { ShortcutContext, ShortcutOptions } from '..'
@@ -15,6 +24,8 @@ const isModifierKey = (key: string) => !!-~modifiers.indexOf(key)
 export const ShortcutProvider: FC<{ options?: ShortcutOptions }> = memo(
   (props) => {
     const { options } = props
+    const [currentOptions, setCurrentOptions] =
+      useState<null | Partial<ShortcutOptions>>(null)
     const [shortcuts, setShortcuts] = React.useState<ShortcutType[]>([])
 
     const actionMap = useRef(
@@ -131,7 +142,15 @@ export const ShortcutProvider: FC<{ options?: ShortcutOptions }> = memo(
 
     return (
       <ShortcutContext.Provider
-        value={{ shortcuts, registerShortcut, options: options ?? {} }}
+        value={useMemo(
+          () => ({
+            shortcuts,
+            registerShortcut,
+            options: merge(options, currentOptions) ?? {},
+            setOptions: setCurrentOptions,
+          }),
+          [currentOptions, options, registerShortcut, shortcuts],
+        )}
       >
         {props.children}
 

@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import { clsx } from '~/utils/clsx'
@@ -16,10 +16,25 @@ export const GuidePanelAnimated = memo(() => {
     stayCommandTimeout = 1000,
     onGuidePanelClose,
     onGuidePanelOpen,
-    debug,
+    open: controlledOpen,
   } = options || {}
 
-  const [open, setOpen] = useState(debug ? true : false)
+  const currentControllerOpen = useRef<boolean | null>(null)
+
+  const [open, setOpen] = useState(controlledOpen ? true : false)
+
+  useEffect(() => {
+    if (controlledOpen) {
+      setOpen(true)
+      setAnimated('in')
+      currentControllerOpen.current = true
+    } else {
+      if (currentControllerOpen.current) {
+        setAnimated('out')
+        currentControllerOpen.current = null
+      }
+    }
+  }, [controlledOpen])
 
   const [animated, setAnimated] = useState<'in' | 'out' | 'none'>('none')
 
@@ -34,7 +49,7 @@ export const GuidePanelAnimated = memo(() => {
   }, [onGuidePanelClose, onGuidePanelOpen, open])
 
   useEffect(() => {
-    if (debug) {
+    if (controlledOpen) {
       return
     }
     let disappearTimer = null as any
@@ -113,7 +128,7 @@ export const GuidePanelAnimated = memo(() => {
 
       clearTimeout(disappearTimer)
     }
-  }, [holdCommandTimeout, stayCommandTimeout])
+  }, [holdCommandTimeout, stayCommandTimeout, controlledOpen])
 
   const [panelWrapperRef, setPanelWrapperRef] = useState<HTMLDivElement | null>(
     null,

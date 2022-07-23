@@ -91,6 +91,10 @@ type ShortcutOptions = {
    * @default 12
    */
   maxItemEveryPage?: number
+  /**
+   * 受控态
+   */
+  controlledOpen?: boolean
 }
 ```
 
@@ -119,5 +123,5 @@ type RegisterShortcutOptions = {
 ## TODO
 
 - [x] Pagination
-- [ ] Controlled status
+- [x] Controlled status
 - [ ] Shortcut priority
