@@ -4,7 +4,7 @@ Status: Alpha
 
 Long-press command or press `?` to present a shortcut guide for your Web application.
 
-0 dependency, Gzip+minify < 3kB
+0 dependency, Gzip+minify ~ 3kB
 
 ![](https://fastly.jsdelivr.net/gh/Innei/fancy@master/2022/0530221552.png)
 
