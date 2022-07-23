@@ -10,14 +10,17 @@ import { GuidePanel } from './Guide'
 import styles from './GuidePanelAnimated.module.css'
 
 export const GuidePanelAnimated = memo(() => {
-  const [open, setOpen] = useState(false)
   const { options } = useContext(ShortcutContext)
   const {
     holdCommandTimeout = 1000,
     stayCommandTimeout = 1000,
     onGuidePanelClose,
     onGuidePanelOpen,
+    debug,
   } = options || {}
+
+  const [open, setOpen] = useState(debug ? true : false)
+
   const [animated, setAnimated] = useState<'in' | 'out' | 'none'>('none')
 
   const openStatus = useStateToRef(open)
@@ -31,6 +34,9 @@ export const GuidePanelAnimated = memo(() => {
   }, [onGuidePanelClose, onGuidePanelOpen, open])
 
   useEffect(() => {
+    if (debug) {
+      return
+    }
     let disappearTimer = null as any
 
     let isHoldCommandKey = false

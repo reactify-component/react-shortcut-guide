@@ -22,28 +22,51 @@
   inset: 0;
   z-index: 100000;
   color: var(--rsg-text-color);
+  pointer-events: none;
 }
 
 .panel {
+  pointer-events: all;
   backdrop-filter: saturate(180%) blur(20px);
   background-color: var(--rsg-bg);
   border-radius: 30px;
   overflow: hidden;
   font-size: 16px;
 
-  gap: 100px;
   width: 100%;
-  max-width: 100%;
-  padding: var(--rsg-pad);
   position: relative;
+  white-space: nowrap;
+
+  overflow-x: auto;
 }
 
-.panel::before {
+.slide-container {
+  padding: var(--rsg-pad);
+  box-sizing: border-box;
+  display: flex;
+  scroll-snap-align: start;
+  scroll-snap-type: y mandatory;
+}
+
+.slide {
+  scroll-snap-align: start;
+  overflow: hidden;
+  width: calc(min(825px, 80vw) - var(--rsg-pad) * 2);
+  display: inline-block;
+  position: relative;
+  margin-right: var(--rsg-pad);
+}
+
+.slide:last-child {
+  margin-right: 0;
+}
+
+.slide::before {
   content: '';
   position: absolute;
   left: 50%;
-  top: var(--rsg-pad);
-  bottom: var(--rsg-pad);
+  top: 0;
+  bottom: 0;
   width: 0.5px;
   background-color: currentColor;
 }

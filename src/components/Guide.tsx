@@ -3,7 +3,7 @@ import React, { FC, memo, useContext, useEffect } from 'react'
 import { useMediaColor } from '~/hooks/use-media-color'
 import { useShortcutList } from '~/hooks/use-shortcut-list'
 import { ShortcutType } from '~/types'
-import { chunkTwo } from '~/utils/chunk'
+import { chunk, chunkTwo } from '~/utils/chunk'
 import { clsx } from '~/utils/clsx'
 import { injectCSS } from '~/utils/css'
 
@@ -15,7 +15,11 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
   const shortcuts = useShortcutList()
 
   const { options } = useContext(ShortcutContext)
-  const { darkClassName = 'body.dark', darkMode = 'media' } = options
+  const {
+    darkClassName = 'body.dark',
+    darkMode = 'media',
+    maxItemEveryPage = 12,
+  } = options
 
   const { dark: isDark } = useMediaColor()
   useEffect(() => {
@@ -43,12 +47,16 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
     }
   }, [])
 
-  if (!shortcuts.length) {
+  const len = shortcuts.length
+  if (!len) {
     return null
   }
-  const splitShortcutsIntoTwoParts = chunkTwo(shortcuts)
+  const totalPage =
+    len <= maxItemEveryPage ? 1 : Math.ceil(len / maxItemEveryPage)
+  const splitShortcutsIntoTwoParts = chunk(shortcuts, maxItemEveryPage).map(
+    (chunk) => chunkTwo(chunk),
+  )
 
-  const [left, right] = splitShortcutsIntoTwoParts
   return (
     <div
       className={clsx(
@@ -60,23 +68,38 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
       )}
     >
       <div className={clsx(styles['panel'], 'rsg-panel-inner')}>
-        <div className={styles['left']}>
-          {left.map((shortcut, i) => (
-            <ShortcutItem
-              {...shortcut}
-              key={shortcut.jointKey}
-              isEnd={i == left.length - 1}
-            />
-          ))}
-        </div>
-        <div className={styles['right']}>
-          {right.map((shortcut, i) => (
-            <ShortcutItem
-              {...shortcut}
-              key={shortcut.jointKey}
-              isEnd={i == right.length - 1}
-            />
-          ))}
+        <div
+          className={styles['slide-container']}
+          style={{
+            width: `calc(${100 * totalPage}% + ${
+              totalPage - 1
+            } * var(--rsg-pad) - var(--rsg-pad) * 2 * ${totalPage - 1})`,
+          }}
+        >
+          {splitShortcutsIntoTwoParts.map(([left, right], i) => {
+            return (
+              <div key={i} className={styles['slide']}>
+                <div className={styles['left']}>
+                  {left.map((shortcut, i) => (
+                    <ShortcutItem
+                      {...shortcut}
+                      key={shortcut.jointKey}
+                      isEnd={i == left.length - 1}
+                    />
+                  ))}
+                </div>
+                <div className={styles['right']}>
+                  {right.map((shortcut, i) => (
+                    <ShortcutItem
+                      {...shortcut}
+                      key={shortcut.jointKey}
+                      isEnd={i == right.length - 1}
+                    />
+                  ))}
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>

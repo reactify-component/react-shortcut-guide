@@ -15,6 +15,7 @@ function App() {
         onGuidePanelOpen() {
           console.log('open')
         },
+        debug: true,
       }}
     >
       <Comp />
@@ -115,23 +116,49 @@ function Comp() {
       preventInput: false,
     },
   )
-  // useShortcut(
-  //   'T',
-  //   [Modifier.Command],
-  //   (e) => {
-  //     e.preventDefault()
-  //     alert('Search')
-  //   },
-  //   'Hiddenx',
-  //   {
-  //     preventInput: false,
-  //   },
-  // )
+  useShortcut(
+    'T',
+    [Modifier.Command],
+    (e) => {
+      e.preventDefault()
+      alert('Test')
+    },
+    'Test',
+    {
+      preventInput: false,
+    },
+  )
+
+  useShortcut(
+    '[',
+    [Modifier.Command],
+    (e) => {
+      e.preventDefault()
+      alert('Test')
+    },
+    'Test',
+    {
+      preventInput: false,
+    },
+  )
+
+  useShortcut(
+    ']',
+    [Modifier.Command],
+    (e) => {
+      e.preventDefault()
+      alert('Test')
+    },
+    'Test',
+    {
+      preventInput: false,
+    },
+  )
 
   return (
     <div>
       <p>Long press ⌘, or press ? to open the guide.</p>
-      {/* <button onClick={cleanup}>Cleanup D Shortcut</button> */}
+      <button onClick={cleanup}>Cleanup D Shortcut</button>
       <OOOOOOOOO />
     </div>
   )

@@ -13,3 +13,18 @@ export function chunkTwo<T>(array: T[]): T[][] {
 
   return [array.slice(0, midIndex), array.slice(midIndex, array.length)]
 }
+
+export const chunk = <T>(array: T[], size: number) => {
+  const length = array == null ? 0 : array.length
+  if (!length || !size || size < 1) {
+    return []
+  }
+
+  const result = []
+  let index = 0
+  while (index < length) {
+    result.push(array.slice(index, (index += size)))
+  }
+
+  return result
+}

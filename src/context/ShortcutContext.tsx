@@ -29,6 +29,13 @@ export type ShortcutOptions = {
    * Guide 关闭事件
    */
   onGuidePanelClose?: () => any
+  /**
+   * 每页最大个数，分页
+   * @default 12
+   */
+  maxItemEveryPage?: number
+
+  debug?: boolean
 }
 export type ShortcutContextValue = {
   shortcuts: ShortcutType[]

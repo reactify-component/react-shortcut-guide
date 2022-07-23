@@ -1,4 +1,5 @@
 // @ts-check
+import esbuild from 'rollup-plugin-esbuild'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
@@ -78,23 +79,23 @@ const config = [
         declaration: false,
         jsx: 'react',
       }),
-      // esbuild({
-      //   include: /\.[jt]sx?$/,
-      //   exclude: /node_modules/,
-      //   sourceMap: false,
-      //   minify: process.env.NODE_ENV === 'production',
-      //   target: 'es2017',
-      //   jsxFactory: 'React.createElement',
-      //   jsxFragment: 'React.Fragment',
-      //   define: {
-      //     __VERSION__: '"x.y.z"',
-      //   },
-      //   tsconfig: './src/tsconfig.json',
-      //   loaders: {
-      //     '.json': 'json',
-      //     '.js': 'jsx',
-      //   },
-      // }),
+      esbuild({
+        include: /\.[jt]sx?$/,
+        exclude: /node_modules/,
+        sourceMap: false,
+        minify: process.env.NODE_ENV === 'production',
+        target: 'es2017',
+        jsxFactory: 'React.createElement',
+        jsxFragment: 'React.Fragment',
+        define: {
+          __VERSION__: '"x.y.z"',
+        },
+        tsconfig: './src/tsconfig.json',
+        loaders: {
+          '.json': 'json',
+          '.js': 'jsx',
+        },
+      }),
       // @ts-ignore
       peerDepsExternal(),
     ],
