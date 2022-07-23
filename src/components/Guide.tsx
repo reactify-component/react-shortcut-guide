@@ -53,7 +53,7 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
 
   const totalPage =
     len <= maxItemEveryPage ? 1 : Math.ceil(len / maxItemEveryPage)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(0)
   useEffect(() => {
     if (totalPage < 2) {
       return
@@ -64,11 +64,15 @@ export const GuidePanel: FC<{ className?: string }> = memo((props) => {
     }
     const $scroll = $scrollRef.current
     const pageWidth = $scroll.scrollWidth / totalPage
-    $scroll.onscroll = debounce(() => {
+    const handler = () => {
       const currentX = $scroll.scrollLeft
 
       setCurrentPage(Math.ceil(currentX / pageWidth))
-    }, 16)
+    }
+
+    $scroll.onscroll = debounce(handler, 16)
+
+    handler()
 
     return () => {
       $scroll.onscroll = null
