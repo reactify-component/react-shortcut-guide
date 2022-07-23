@@ -118,4 +118,6 @@ type RegisterShortcutOptions = {
 
 ## TODO
 
-- [ ] 分页
+- [x] Pagination
+- [ ] Controlled status
+- [ ] Shortcut priority
