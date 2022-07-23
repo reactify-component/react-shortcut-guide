@@ -4,7 +4,7 @@ Status: Alpha
 
 Long-press command or press `?` to present a shortcut guide for your Web application.
 
-Gzip+minify < 3kB
+0 dependency, Gzip+minify < 3kB
 
 ![](https://fastly.jsdelivr.net/gh/Innei/fancy@master/2022/0530221552.png)
 
@@ -86,6 +86,11 @@ type ShortcutOptions = {
    * Guide 关闭事件
    */
   onGuidePanelClose?: () => any
+  /**
+   * 每页最大个数，分页
+   * @default 12
+   */
+  maxItemEveryPage?: number
 }
 ```
 

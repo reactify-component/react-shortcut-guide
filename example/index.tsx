@@ -155,6 +155,24 @@ function Comp() {
     },
   )
 
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase()
+
+  alphabet.split('').forEach((letter, index) => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useShortcut(
+      letter,
+      [Modifier.Command, Modifier.Control],
+      (e) => {
+        e.preventDefault()
+        alert(letter)
+      },
+      `${letter}`,
+      {
+        preventInput: false,
+      },
+    )
+  })
+
   return (
     <div>
       <p>Long press ⌘, or press ? to open the guide.</p>

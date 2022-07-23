@@ -3,6 +3,8 @@
   --rsg-bg: rgba(255, 255, 255, 0.72);
   --rsg-pad: 60px;
   --rsg-text-color: #464b4d;
+  --rsg-panel-width: 825px;
+  --rsg-item-gap: 30px;
 }
 
 .root.dark {
@@ -14,7 +16,7 @@
   font-family: var(--rsg-font);
   line-height: 1.6;
   position: fixed;
-  width: 825px;
+  width: var(--rsg-panel-width);
   max-width: 80vw;
   margin: auto;
   display: flex;
@@ -38,20 +40,24 @@
   white-space: nowrap;
 
   overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  display: flex;
+  scroll-behavior: smooth;
+  scroll-snap-destination: calc(var(--rsg-panel-width) / 3) 0;
 }
 
-.slide-container {
-  padding: var(--rsg-pad);
-  box-sizing: border-box;
-  display: flex;
-  scroll-snap-align: start;
-  scroll-snap-type: y mandatory;
+.panel::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .slide {
+  flex-shrink: 0;
+  padding: var(--rsg-pad);
   scroll-snap-align: start;
   overflow: hidden;
-  width: calc(min(825px, 80vw) - var(--rsg-pad) * 2);
+  width: calc(min(var(--rsg-panel-width), 80vw) - var(--rsg-pad) * 2);
   display: inline-block;
   position: relative;
   margin-right: var(--rsg-pad);
@@ -65,8 +71,9 @@
   content: '';
   position: absolute;
   left: 50%;
-  top: 0;
-  bottom: 0;
+  top: var(--rsg-pad);
+  bottom: var(--rsg-pad);
+
   width: 0.5px;
   background-color: currentColor;
 }
@@ -88,7 +95,16 @@
     width: 100%;
     float: none;
   }
-  .panel::before {
+
+  .root {
+    --rsg-item-gap: 20px;
+  }
+
+  .panel .left {
+    margin-bottom: var(--rsg-item-gap);
+  }
+
+  .slide::before {
     display: none;
   }
 }
@@ -97,7 +113,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: var(--rsg-item-gap);
   min-width: 0;
 
   max-width: 100%;
@@ -128,4 +144,30 @@
   min-width: 2ch;
   display: inline-flex;
   justify-content: center;
+}
+
+.indicator {
+  position: sticky;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  transform: translate(
+    calc(min(var(--rsg-panel-width), 80vw) * -1 / 2),
+    calc(var(--rsg-pad) / 2 * -1)
+  );
+}
+
+.indicator-ball {
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background-color: var(--rsg-text-color);
+  opacity: 0.5;
+  display: inline-block;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.indicator-ball.active {
+  opacity: 1;
 }

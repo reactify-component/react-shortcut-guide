@@ -1,8 +1,8 @@
-import debounce from 'lodash.debounce'
 import React, { memo, useContext, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import { clsx } from '~/utils/clsx'
+import { debounce } from '~/utils/debounce'
 import { checkIsPressInInputEl } from '~/utils/input'
 
 import { ShortcutContext, useStateToRef } from '..'
@@ -64,26 +64,20 @@ export const GuidePanelAnimated = memo(() => {
       }
     }
 
-    const handleCommandKey = debounce(
-      (e: KeyboardEvent) => {
-        if (!document.hasFocus()) {
-          return
-        }
+    const handleCommandKey = debounce((e: KeyboardEvent) => {
+      if (!document.hasFocus()) {
+        return
+      }
 
-        const key = e.key
+      const key = e.key
 
-        if (key == 'Meta' || key == 'Control') {
-          disappearTimer = clearTimeout(disappearTimer)
-          setOpen(true)
-          setAnimated('in')
-          isHoldCommandKey = true
-        }
-      },
-      holdCommandTimeout,
-      {
-        leading: false,
-      },
-    )
+      if (key == 'Meta' || key == 'Control') {
+        disappearTimer = clearTimeout(disappearTimer)
+        setOpen(true)
+        setAnimated('in')
+        isHoldCommandKey = true
+      }
+    }, holdCommandTimeout)
 
     const handleKeyUp = (e: KeyboardEvent) => {
       if (!isHoldCommandKey) {
