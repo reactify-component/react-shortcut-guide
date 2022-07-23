@@ -44,7 +44,7 @@
     "build:vite": "vite build",
     "preview": "vite preview --port 2323",
     "deploy": "vite build && gh-pages -d example/dist",
-    "test": "vitest "
+    "test": "vitest"
   },
   "devDependencies": {
     "@geist-ui/core": "2.3.8",

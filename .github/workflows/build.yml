@@ -39,5 +39,6 @@ jobs:
           run_install: true
       - run: pnpm run package
       - run: pnpm run test
+      - run: pnpm run deploy
         env:
           CI: true
