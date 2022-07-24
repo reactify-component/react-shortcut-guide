@@ -30,6 +30,7 @@
 .panel {
   pointer-events: all;
   backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
   background-color: var(--rsg-bg);
   border-radius: 30px;
   overflow: hidden;
