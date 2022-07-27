@@ -108,70 +108,7 @@ function Comp() {
     },
   )
 
-  useShortcut(
-    'X',
-    [Modifier.Command],
-    (e) => {
-      e.preventDefault()
-      alert('Search')
-    },
-    'Hidaden',
-    {
-      preventInput: false,
-    },
-  )
-  useShortcut(
-    'B',
-    [Modifier.Command],
-    (e) => {
-      e.preventDefault()
-      alert('Search')
-    },
-    'Hiddzen',
-    {
-      preventInput: false,
-    },
-  )
-  useShortcut(
-    'T',
-    [Modifier.Command],
-    (e) => {
-      e.preventDefault()
-      alert('Test')
-    },
-    'Test',
-    {
-      preventInput: false,
-    },
-  )
-
-  useShortcut(
-    '[',
-    [Modifier.Command],
-    (e) => {
-      e.preventDefault()
-      alert('Test')
-    },
-    'Test',
-    {
-      preventInput: false,
-    },
-  )
-
-  useShortcut(
-    ']',
-    [Modifier.Command],
-    (e) => {
-      e.preventDefault()
-      alert('Test')
-    },
-    'Test',
-    {
-      preventInput: false,
-    },
-  )
-
-  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.toUpperCase()
+  const alphabet = 'abcde'.toUpperCase()
 
   alphabet.split('').forEach((letter, index) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks

@@ -45,6 +45,7 @@
   display: flex;
   scroll-behavior: smooth;
   scroll-snap-destination: calc(var(--rsg-panel-width) / 3) 0;
+  box-sizing: content-box;
 }
 
 .panel::-webkit-scrollbar {
@@ -62,6 +63,7 @@
   display: inline-block;
   position: relative;
   margin-right: var(--rsg-pad);
+  box-sizing: content-box;
 }
 
 .slide:last-child {
