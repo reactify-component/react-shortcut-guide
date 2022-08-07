@@ -1,6 +1,6 @@
 {
   "name": "react-shortcut-guide",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Long-press command or press `?` to present a shortcut guide for your Web application.",
   "author": "Innei",
   "license": "MIT",
