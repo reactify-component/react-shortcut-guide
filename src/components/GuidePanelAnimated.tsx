@@ -82,12 +82,24 @@ export const GuidePanelAnimated = memo(() => {
     let holdCommandTimer: any
 
     const handleCommandKey = (e: KeyboardEvent) => {
-      holdCommandTimer = setTimeout(() => {
-        holdCommandTimer = null
-        e.stopPropagation()
-        const key = e.key
+      const key = e.key
+      const isCommandKey = key == 'Meta' || key == 'Control'
 
-        if (key == 'Meta' || key == 'Control') {
+      if (!isCommandKey) {
+        holdCommandTimer = clearTimeout(holdCommandTimer)
+        return
+      }
+      holdCommandTimer = setTimeout(() => {
+        console.log('set timer')
+
+        holdCommandTimer = null
+
+        if (!document.hasFocus()) {
+          return
+        }
+        e.stopPropagation()
+
+        if (isCommandKey) {
           disappearTimer = clearTimeout(disappearTimer)
           setOpen(true)
           setAnimated('in')
@@ -119,11 +131,10 @@ export const GuidePanelAnimated = memo(() => {
     }
 
     const handleReleaseCommandKey = () => {
-      if (!document.hasFocus()) {
-        return
-      }
       holdCommandTimer = clearTimeout(holdCommandTimer)
     }
+
+    const handleBlur = handleReleaseCommandKey
 
     window.addEventListener('keydown', handleKeyDown)
     window.addEventListener('keyup', handleKeyUp)
@@ -131,12 +142,14 @@ export const GuidePanelAnimated = memo(() => {
 
     window.addEventListener('keydown', handleCommandKey)
     window.addEventListener('keyup', handleReleaseCommandKey)
+    window.addEventListener('blur', handleBlur)
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('keydown', handleCommandKey)
       window.removeEventListener('keyup', handleKeyUp)
       window.removeEventListener('keyup', handleReleaseCommandKey)
+      window.removeEventListener('blur', handleBlur)
 
       clearTimeout(disappearTimer)
     }
