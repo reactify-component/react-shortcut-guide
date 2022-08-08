@@ -90,8 +90,6 @@ export const GuidePanelAnimated = memo(() => {
         return
       }
       holdCommandTimer = setTimeout(() => {
-        console.log('set timer')
-
         holdCommandTimer = null
 
         if (!document.hasFocus()) {
