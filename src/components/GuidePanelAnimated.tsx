@@ -2,7 +2,6 @@ import React, { memo, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import { clsx } from '~/utils/clsx'
-import { debounce } from '~/utils/debounce'
 import { checkIsPressInInputEl } from '~/utils/input'
 
 import { ShortcutContext, useStateToRef } from '..'

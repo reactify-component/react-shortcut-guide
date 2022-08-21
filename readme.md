@@ -14,9 +14,20 @@ Long-press command or press `?` to present a shortcut guide for your Web applica
 npm i react-shortcut-guide
 ```
 
+## BREAKING CHANGE
+
+After upgrade to v0.5.0, you must put react children out provider, use it as a single component without children.
+
+```tsx
+<>
+  <ShortcutProvider />
+  <App />
+</>
+```
+
 ## Usage
 
-1. Wrap `ShortcutProvide` on root App component.
+1. Add `ShortcutProvider` as a child element on root App component.
 
 ```tsx
 import React from 'react'
@@ -27,13 +38,14 @@ render(<App />, document.getElementById('app'))
 
 function App() {
   return (
-    <ShortcutProvider
-      options={{
-        darkMode: 'media',
-      }}
-    >
+    <>
+      <ShortcutProvider
+        options={{
+          darkMode: 'media',
+        }}
+      />
       <Comp />
-    </ShortcutProvider>
+    </>
   )
 }
 ```

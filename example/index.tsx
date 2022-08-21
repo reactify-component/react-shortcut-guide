@@ -1,13 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { render } from 'react-dom'
-import { Modifier, ShortcutContext, useShortcut, useShortcutOptions } from '~'
+import { Modifier, useShortcut, useShortcutOptions } from '~'
 
 import {
   Button,
   CssBaseline,
   GeistProvider,
   Page,
-  Spacer,
   Text,
   Tooltip,
 } from '@geist-ui/core'
@@ -26,16 +25,17 @@ render(
 
 function App() {
   return (
-    <ShortcutProvider
-      options={{
-        darkMode: 'media',
-        onGuidePanelOpen() {
-          console.log('open')
-        },
-      }}
-    >
+    <>
+      <ShortcutProvider
+        options={{
+          darkMode: 'media',
+          onGuidePanelOpen() {
+            console.log('open')
+          },
+        }}
+      />
       <Comp />
-    </ShortcutProvider>
+    </>
   )
 }
 
@@ -75,6 +75,8 @@ function Comp() {
     },
     'Print D',
   )
+
+  console.log(cleanup)
 
   useShortcut(
     'O',

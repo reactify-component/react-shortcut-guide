@@ -10,6 +10,7 @@ import React, {
 
 import { macosMetaKeyCharMap, otherKeyCharMap } from '~/constants/key-map'
 import { Modifier } from '~/enums/modifier'
+import { Guide } from '~/helper'
 import { RegisterShortcutType, ShortcutType } from '~/types'
 import { checkIsPressInInputEl } from '~/utils/input'
 import { merge } from '~/utils/merge'
@@ -140,6 +141,14 @@ export const ShortcutProvider: FC<{ options?: ShortcutOptions }> = memo(
       [],
     )
 
+    useEffect(() => {
+      Guide.setRegister(registerShortcut)
+
+      return () => {
+        Guide.setRegister(null)
+      }
+    }, [registerShortcut])
+
     return (
       <ShortcutContext.Provider
         value={useMemo(
@@ -152,8 +161,6 @@ export const ShortcutProvider: FC<{ options?: ShortcutOptions }> = memo(
           [currentOptions, options, registerShortcut, shortcuts],
         )}
       >
-        {props.children}
-
         <GuidePanelAnimated />
       </ShortcutContext.Provider>
     )

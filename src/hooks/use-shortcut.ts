@@ -1,20 +1,17 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
-import { RegisterShortcutType } from '~/types'
+import { Guide } from '~/helper'
+import { CleanupFn, RegisterShortcutType } from '~/types'
 
-import { ShortcutContext } from '..'
-
-export const useShortcut: (...rest: Parameters<RegisterShortcutType>) => any = (
-  ...rest
-) => {
-  const { registerShortcut } = useContext(ShortcutContext)
-
+export const useShortcut: (
+  ...rest: Parameters<RegisterShortcutType>
+) => CleanupFn = (...rest) => {
   const cleanupRef = useRef<() => void>()
   useEffect(() => {
-    const cleanup = registerShortcut(...rest)
+    const cleanup = Guide.registerShortcut(...rest)
     cleanupRef.current = cleanup
     return cleanup
-  }, [])
+  }, [rest])
 
-  return cleanupRef.current
+  return () => cleanupRef.current?.()
 }
