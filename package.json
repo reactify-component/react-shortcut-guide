@@ -5,7 +5,7 @@
   "author": "Innei",
   "license": "MIT",
   "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.esm.mjs",
   "types": "dist/index.d.ts",
   "unpkg": "dist/index.umd.min.js",
   "files": [
@@ -15,6 +15,19 @@
     "readme.md",
     "tsconfig.json"
   ],
+  "exports": {
+    ".": {
+      "type": "./dist/index.d.ts",
+      "import": "./dist/index.esm.mjs",
+      "require": "./dist/index.cjs.js"
+    },
+    "./src": {
+      "import": "./src"
+    },
+    "./src/*": {
+      "import": "./src/*"
+    }
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

@@ -8,7 +8,7 @@ import { clsx } from '~/utils/clsx'
 import { injectCSS } from '~/utils/css'
 import { debounce } from '~/utils/debounce'
 
-import { ShortcutContext } from '..'
+import { ShortcutContext } from '../context/ShortcutContext'
 import styles from './Guide.module.css'
 
 export const GuidePanel: FC<{ className?: string }> = memo((props) => {

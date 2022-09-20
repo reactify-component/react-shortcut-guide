@@ -59,12 +59,12 @@ const config = [
         plugins: [terser()],
       },
       {
-        file: `${dir}/index.esm.js`,
+        file: `${dir}/index.esm.mjs`,
         format: 'es',
         sourcemap: true,
       },
       {
-        file: `${dir}/index.esm.min.js`,
+        file: `${dir}/index.esm.min.mjs`,
         format: 'es',
         sourcemap: true,
         plugins: [terser()],
