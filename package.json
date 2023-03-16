@@ -32,7 +32,7 @@
   },
   "bump": {
     "before": [
-      "npm run package"
+      "npm run build"
     ],
     "publish": true
   },
