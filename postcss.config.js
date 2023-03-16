@@ -1,7 +1,7 @@
 module.exports = {
   'postcss-nested': {},
   'postcss-preset-env': {},
-  cssnano: {
-    preset: ['default'],
-  },
+  // cssnano: {
+  //   preset: ['default'],
+  // },
 }

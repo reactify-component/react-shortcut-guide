@@ -7,14 +7,12 @@ import commonjs from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 
-const {
-  default: { default: esbuild },
-  minify,
-} = esbuild_
+const { minify } = esbuild_
 
 const packageJson = require('./package.json')
 
 const globals = {
+  // @ts-ignore
   ...packageJson.dependencies,
 }
 
@@ -62,6 +60,7 @@ const config = [
     plugins: [
       nodeResolve(),
       postcss({
+        // config: './postcss.config.js',
         minimize: true,
       }),
       commonjs({ include: 'node_modules/**' }),
@@ -70,23 +69,23 @@ const config = [
         declaration: false,
         jsx: 'react',
       }),
-      esbuild({
-        include: /\.[jt]sx?$/,
-        exclude: /node_modules/,
-        sourceMap: false,
-        minify: process.env.NODE_ENV === 'production',
-        target: 'es2017',
-        jsxFactory: 'React.createElement',
-        jsxFragment: 'React.Fragment',
-        define: {
-          __VERSION__: '"x.y.z"',
-        },
-        tsconfig: './src/tsconfig.json',
-        loaders: {
-          '.json': 'json',
-          '.js': 'jsx',
-        },
-      }),
+      // esbuild({
+      //   include: /\.[jt]sx?$/,
+      //   exclude: /node_modules/,
+      //   sourceMap: false,
+      //   minify: process.env.NODE_ENV === 'production',
+      //   target: 'es2017',
+      //   jsxFactory: 'React.createElement',
+      //   jsxFragment: 'React.Fragment',
+      //   define: {
+      //     __VERSION__: '"x.y.z"',
+      //   },
+      //   tsconfig: './src/tsconfig.json',
+      //   loaders: {
+      //     '.json': 'json',
+      //     '.js': 'jsx',
+      //   },
+      // }),
       // @ts-ignore
       peerDepsExternal(),
     ],
