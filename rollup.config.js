@@ -1,16 +1,18 @@
 // @ts-check
-import esbuild from 'rollup-plugin-esbuild'
+import * as esbuild_ from 'rollup-plugin-esbuild'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
-import { terser } from 'rollup-plugin-terser'
 
 import commonjs from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 
-const packageJson = require('./package.json')
+const {
+  default: { default: esbuild },
+  minify,
+} = esbuild_
 
-const umdName = packageJson.name
+const packageJson = require('./package.json')
 
 const globals = {
   ...packageJson.dependencies,
@@ -35,19 +37,6 @@ const config = [
 
     output: [
       {
-        file: `${dir}/index.umd.js`,
-        format: 'umd',
-        sourcemap: true,
-        name: umdName,
-      },
-      {
-        file: `${dir}/index.umd.min.js`,
-        format: 'umd',
-        sourcemap: true,
-        name: umdName,
-        plugins: [terser()],
-      },
-      {
         file: `${dir}/index.cjs.js`,
         format: 'cjs',
         sourcemap: true,
@@ -56,7 +45,7 @@ const config = [
         file: `${dir}/index.cjs.min.js`,
         format: 'cjs',
         sourcemap: true,
-        plugins: [terser()],
+        plugins: [minify()],
       },
       {
         file: `${dir}/index.esm.mjs`,
@@ -67,12 +56,14 @@ const config = [
         file: `${dir}/index.esm.min.mjs`,
         format: 'es',
         sourcemap: true,
-        plugins: [terser()],
+        plugins: [minify()],
       },
     ],
     plugins: [
       nodeResolve(),
-      postcss({}),
+      postcss({
+        minimize: true,
+      }),
       commonjs({ include: 'node_modules/**' }),
       typescript({
         tsconfig: './src/tsconfig.json',
